@@ -1,7 +1,6 @@
 # .github/workflows/lint.yml
 
-name: Lint
-
+name: Lint Common
 on: [push]
 jobs:
   build:
@@ -14,3 +13,17 @@ jobs:
       - name: Run ESLint
         run: yarn lint
         working-directory: ./common
+
+name: Lint Company
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install modules
+        run: yarn
+        working-directory: ./company
+      - name: Run ESLint
+        run: yarn lint
+        working-directory: ./company
