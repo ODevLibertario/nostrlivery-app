@@ -1,11 +1,12 @@
 # .github/workflows/lint.yml
 
 name: Lint
-on: [push]
-paths:
-  - 'common/**'
-  - 'company/**'
-  - 'driver/**'
+on:
+  push:
+    paths:
+      - 'common/**'
+      - 'company/**'
+      - 'driver/**'
 jobs:
   build:
     runs-on: ubuntu-latest
