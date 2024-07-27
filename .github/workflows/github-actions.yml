@@ -2,6 +2,10 @@
 
 name: Lint
 on: [push]
+paths:
+  - 'common/**'
+  - 'company/**'
+  - 'driver/**'
 jobs:
   build:
     runs-on: ubuntu-latest
