@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ES5",               // Or any other target you need
+    "module": "commonjs",          // Or another module system you are using
+    "jsx": "react",                // Set to "react" if using React, or "react-jsx" for React 17+
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "declaration": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
