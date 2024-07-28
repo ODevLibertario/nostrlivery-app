@@ -2,7 +2,7 @@ import { StorageService, StoredKey } from "./StorageService"
 import { NostrEvent } from "../model/NostrEvent"
 import { verifyEvent } from "nostr-tools"
 import type {Filter} from "nostr-tools/lib/types/filter"
-import {NostrService} from "./NostrService";
+import {NostrService} from "./NostrService"
 
 export class NodeService {
 

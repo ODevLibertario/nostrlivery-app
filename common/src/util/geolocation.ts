@@ -1,4 +1,4 @@
-import { PermissionsAndroid } from "react-native"
+import {PermissionsAndroid} from "react-native"
 import * as Location from 'expo-location'
 
 export class GeolocationUtils {
@@ -16,13 +16,12 @@ export class GeolocationUtils {
         if (granted) {
             return await new Promise((resolve, reject) => {
                 navigator.geolocation.getCurrentPosition(position => {
-                        resolve(position)
-                    },
-                    error => {
-                        reject(error)
-                    })
+                    resolve(position)
+                },
+                error => {
+                    reject(error)
+                })
             })
         }
     }
 }
-

@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "pack": "npm pack",
+    "pack": "npm run build && npm pack && cd .. && cd company && npm install ../common/nostrlivery-common-1.0.0.tgz",
     "build": "tsc",
     "prepublishOnly": "npm run build",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
@@ -34,7 +34,8 @@
     "react-native-toast-message": "^2.2.0",
     "react-native-vector-icons": "^10.0.3",
     "text-encoding": "^0.7.0",
-    "text-encoding-polyfill": "^0.6.7"
+    "text-encoding-polyfill": "^0.6.7",
+    "expo-clipboard": "~5.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

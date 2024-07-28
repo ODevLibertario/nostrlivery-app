@@ -13,6 +13,10 @@ jobs:
       - name: Run ESLint
         run: yarn lint
         working-directory: ./common
+      - name: Pack common module
+        run:
+          npm pack
+        working-directory: ./common
 #  lint-company:
 #    runs-on: ubuntu-latest
 #    steps:

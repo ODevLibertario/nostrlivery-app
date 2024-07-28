@@ -1,7 +1,10 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 
-import { NodeSelectionScreen, LoginScreen } from "nostrlivery-common"
+import { NodeSelectionScreen } from "nostrlivery-common"
+import { LoginScreen } from "nostrlivery-common"
 import { HomeRoutes } from "./home.routes"
+import React from "react"
+import {SignUpScreen} from "nostrlivery-common"
 
 const { Navigator, Screen } = createNativeStackNavigator()
 
@@ -20,6 +23,7 @@ export function AppRoutes() {
                 component={NodeSelectionScreen}
             />
             <Screen name="Login" component={LoginScreen} />
+            <Screen name="SignUp" component={SignUpScreen} />
             <Screen name="Nostrlivery" component={HomeRoutes} />
         </Navigator>
     )

@@ -2,10 +2,10 @@ import React from "react"
 import {StyleSheet, Text, TextInput, View} from "react-native"
 import Toast from "react-native-toast-message"
 import {getPublicKey, nip19} from "nostr-tools"
-import {NodeService} from "../../service/NodeService";
-import {StorageService, StoredKey} from "../../service/StorageService";
-import {ActionButton} from "../../components/ActionButton";
-import {ValidationUtils} from "../../util/validationUtils";
+import {NodeService} from "../../service/NodeService"
+import {StorageService, StoredKey} from "../../service/StorageService"
+import {ActionButton} from "../../components/ActionButton"
+import {ValidationUtils} from "../../util/validationUtils"
 
 export const LoginScreen = ({ navigation }: any) => {
     const [nsecInput, onChangeNsecInput] = React.useState("")
@@ -41,6 +41,10 @@ export const LoginScreen = ({ navigation }: any) => {
         }
     }).catch(e => { console.log(e) })
 
+    const navigateToSignUp = () => {
+        navigation.navigate("SignUp")
+    }
+
     return (
         <View style={styles.container}>
             <Text style={{ fontWeight: "bold", fontSize: 20, marginBottom: "2%" }}>
@@ -49,6 +53,7 @@ export const LoginScreen = ({ navigation }: any) => {
             <Text style={styles.label}>Enter your nsec</Text>
             <TextInput style={styles.input} onChangeText={onChangeNsecInput} secureTextEntry={true} />
             <ActionButton title={"Enter"} color={"purple"} onPress={authenticate} />
+            <ActionButton title={"Sign Up"} color={"purple"} onPress={navigateToSignUp} customStyle={{ marginTop: "2%" }} />
         </View>
     )
 }

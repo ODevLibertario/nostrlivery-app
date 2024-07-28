@@ -26,4 +26,3 @@ export class NavigationUtils {
         return {isFocused, isFirstTime, focusCount, isNavigation: focusCount > 1 && isFocused}
     }
 }
-

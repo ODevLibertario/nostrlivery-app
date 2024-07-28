@@ -40,6 +40,7 @@ module.exports = {
         '@typescript-eslint/no-confusing-void-expression': 'off',
         '@typescript-eslint/dot-notation': 'warn',
         '@typescript-eslint/promise-function-async': 'warn',
+        '@typescript-eslint/no-extraneous-class': 'off',
         'n/handle-callback-err': 'warn',
         '@typescript-eslint/require-array-sort-compare': ['error', {
             ignoreStringArrays: true

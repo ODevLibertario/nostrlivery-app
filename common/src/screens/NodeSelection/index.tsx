@@ -1,11 +1,10 @@
-import { useState } from "react"
+import React, { useState } from "react"
 import { StyleSheet, Text, View } from "react-native"
 import Toast from "react-native-toast-message"
-import {NodeService} from "../../service/NodeService";
-import {StorageService, StoredKey} from "../../service/StorageService";
-import {SelectInput} from "../../components/SelectInput";
-import React from "react";
-import {ActionButton} from "../../components/ActionButton";
+import {NodeService} from "../../service/NodeService"
+import {StorageService, StoredKey} from "../../service/StorageService"
+import {SelectInput} from "../../components/SelectInput"
+import {ActionButton} from "../../components/ActionButton"
 
 export const NodeSelectionScreen = ({ navigation }: any) => {
     const [nodeUrl, onChangeNodeUrl] = useState("")
