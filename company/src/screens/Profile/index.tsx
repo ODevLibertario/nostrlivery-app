@@ -163,7 +163,7 @@ export const ProfileScreen = ({ navigation }: any) => {
                         @{profile.name}
                     </Text>
                 </View>
-                <View style={styles.profilePicContainer}>
+                {profile.picture && <View style={styles.profilePicContainer}>
                     <View style={{ width: 80, height: 80 }}>
                         <Image
                             style={{
@@ -178,7 +178,7 @@ export const ProfileScreen = ({ navigation }: any) => {
                             alt="profile_picture"
                         />
                     </View>
-                </View>
+                </View>}
             </View>
             <View>
                 <Text style={{ fontSize: 16 }}>Node Url</Text>
