@@ -5,8 +5,6 @@ on: [push]
 jobs:
   lint-common:
     runs-on: ubuntu-latest
-    outputs:
-      package-path: ${{ steps.pack-common.outputs.package-path }}
     steps:
       - uses: actions/checkout@v2
       - name: Install modules
@@ -18,12 +16,11 @@ jobs:
       - name: Pack common module
         id: pack-common
         run: |
-          PACKAGE_NAME=$(npm pack)
-          echo "::set-output name=package-path::$PACKAGE_NAME"
+          npm pack
         working-directory: ./common
       - uses: actions/checkout@v2
       - name: Install common module
-        run: npm install '../common/${{ needs.lint-common.outputs.package-path }}'
+        run: npm install '../common/nostrlivery-common-1.0.0.tgz'
         working-directory: ./company
       - name: Install modules
         run: yarn
