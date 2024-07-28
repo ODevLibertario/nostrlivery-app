@@ -23,7 +23,7 @@ jobs:
         working-directory: ./common
       - uses: actions/checkout@v2
       - name: Install common module
-        run: yarn add file:../common/${{ needs.lint-common.outputs.package-path }}
+        run: yarn install ../common/${{ needs.lint-common.outputs.package-path }}
         working-directory: ./company
       - name: Install modules
         run: yarn
