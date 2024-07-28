@@ -18,7 +18,7 @@ jobs:
         run: |
           npm pack
         working-directory: ./common
-      - name: Publish to npm
+      #- name: Publish to npm
       #  run: |
       #    echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
       #    npm publish --access public
