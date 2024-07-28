@@ -5,6 +5,8 @@ on: [push]
 jobs:
   lint-common:
     runs-on: ubuntu-latest
+    outputs:
+      package-path: ${{ steps.pack-common.outputs.package-path }}
     steps:
       - uses: actions/checkout@v2
       - name: Install modules
@@ -14,10 +16,15 @@ jobs:
         run: yarn lint
         working-directory: ./common
       - name: Pack common module
-        run:
-          npm pack
+        id: pack-common
+        run: |
+          PACKAGE_NAME=$(npm pack)
+          echo "::set-output name=package-path::$PACKAGE_NAME"
         working-directory: ./common
       - uses: actions/checkout@v2
+      - name: Install common module
+        run: yarn add file:../common/${{ needs.lint-common.outputs.package-path }}
+        working-directory: ./company
       - name: Install modules
         run: yarn
         working-directory: ./company
