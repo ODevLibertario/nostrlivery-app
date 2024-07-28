@@ -2,9 +2,8 @@ import React, {useEffect} from "react"
 import {View} from "react-native"
 import {useForm} from "react-hook-form"
 import Toast from "react-native-toast-message"
-import {StorageService, NodeService, NostrService, StoredKey} from "@odevlibertario/nostrlivery-common";
+import {StorageService, NodeService, NostrService, StoredKey, NavigationUtils, ValidationUtils, FormTextInput, ActionButton} from "@odevlibertario/nostrlivery-common"
 import {getPublicKey, nip19} from "nostr-tools"
-import {NavigationUtils, ValidationUtils, FormTextInput, ActionButton} from "@odevlibertario/nostrlivery-common";
 
 const storageService = new StorageService()
 const nostrService = new NostrService()

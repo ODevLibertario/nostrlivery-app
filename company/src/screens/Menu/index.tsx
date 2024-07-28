@@ -1,6 +1,6 @@
 import React, {useEffect, useReducer, useState} from "react"
 import {Alert, Image, TouchableOpacity, View} from "react-native"
-import {StorageService, NodeService, NostrService, StoredKey, NavigationUtils, ArrayUtils, ActionButton} from "@odevlibertario/nostrlivery-common";
+import {StorageService, NodeService, NostrService, StoredKey, NavigationUtils, ArrayUtils, ActionButton} from "@odevlibertario/nostrlivery-common"
 import {List} from "react-native-paper"
 import {getPublicKey, nip19} from "nostr-tools"
 
