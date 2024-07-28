@@ -24,18 +24,18 @@ jobs:
       #    npm publish --access public
       #  working-directory: ./common
   lint-company:
-      - uses: actions/checkout@v2
-      - name: Install modules
-        run: yarn
-        working-directory: ./company
-      - name: Run ESLint
-        run: yarn lint
-        working-directory: ./company
+    - uses: actions/checkout@v2
+    - name: Install modules
+      run: yarn
+      working-directory: ./company
+    - name: Run ESLint
+      run: yarn lint
+      working-directory: ./company
   lint-driver:      
-      - uses: actions/checkout@v2
-      - name: Install modules
-        run: yarn
-        working-directory: ./driver
-      - name: Run ESLint
-        run: yarn lint
-        working-directory: ./driver
+    - uses: actions/checkout@v2
+    - name: Install modules
+      run: yarn
+      working-directory: ./driver
+    - name: Run ESLint
+      run: yarn lint
+      working-directory: ./driver
