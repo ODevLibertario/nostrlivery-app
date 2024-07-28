@@ -1,10 +1,8 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 
-import { NodeSelectionScreen } from "nostrlivery-common"
-import { LoginScreen } from "nostrlivery-common"
+import { NodeSelectionScreen, LoginScreen, SignUpScreen } from "@odevlibertario/nostrlivery-common"
 import { HomeRoutes } from "./home.routes"
 import React from "react"
-import {SignUpScreen} from "nostrlivery-common"
 
 const { Navigator, Screen } = createNativeStackNavigator()
 

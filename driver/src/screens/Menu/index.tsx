@@ -2,7 +2,7 @@ import React, {useEffect, useReducer, useState} from "react"
 import {Alert, Image, TouchableOpacity, View} from "react-native"
 import {List} from "react-native-paper"
 import {getPublicKey, nip19} from "nostr-tools"
-import {StorageService, NostrService, NodeService, NavigationUtils, StoredKey, ArrayUtils, ActionButton } from "nostrlivery-common"
+import {StorageService, NostrService, NodeService, NavigationUtils, StoredKey, ArrayUtils, ActionButton } from "@odevlibertario/nostrlivery-common"
 
 export const MenuScreen = ({navigation}: any) => {
     const storageService = new StorageService()

@@ -11,6 +11,7 @@
     "lint:fix": "eslint . --fix --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "@odevlibertario/nostrlivery-common": "^1.0.0",
     "@react-native-async-storage/async-storage": "^1.23.1",
     "@react-navigation/bottom-tabs": "^6.5.20",
     "@react-navigation/native": "^6.1.17",
@@ -21,7 +22,6 @@
     "expo-location": "~16.5.5",
     "expo-status-bar": "~1.11.1",
     "nostr-tools": "^2.4.0",
-    "nostrlivery-common": "file:../common/nostrlivery-common-1.0.0.tgz",
     "react": "18.2.0",
     "react-hook-form": "^7.51.3",
     "react-native": "0.73.6",

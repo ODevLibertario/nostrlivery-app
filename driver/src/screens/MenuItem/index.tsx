@@ -12,8 +12,7 @@ import {
     FormTextInput,
     ActionButton,
     ValidationUtils
-} from "nostrlivery-common"
-
+} from "@odevlibertario/nostrlivery-common"
 
 const storageService = new StorageService()
 const nostrService = new NostrService()

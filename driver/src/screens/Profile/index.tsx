@@ -9,8 +9,7 @@ import {
     StoredKey,
     SelectInput,
     ActionButton
-} from "nostrlivery-common"
-
+} from "@odevlibertario/nostrlivery-common"
 
 export const ProfileScreen = ({ navigation }: any) => {
     const [profile, setProfile] = useState<any>({})

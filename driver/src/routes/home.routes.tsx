@@ -2,10 +2,10 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
 import FontAwesome from "react-native-vector-icons/FontAwesome"
 
-import { HomeScreen } from "../screens/Home"
-import { MenuScreen } from "../screens/Menu"
-import { ProfileScreen } from "../screens/Profile"
-import { MenuItem } from "../screens/MenuItem"
+import { HomeScreen } from "@screens/Home"
+import { MenuScreen } from "@screens/Menu"
+import { ProfileScreen } from "@screens/Profile"
+import { MenuItem } from "@screens/MenuItem"
 
 const { Navigator, Screen } = createBottomTabNavigator()
 
