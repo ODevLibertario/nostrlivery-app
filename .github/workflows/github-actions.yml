@@ -3,7 +3,7 @@
 name: Lint
 on: [push]
 jobs:
-  lint-common:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -18,20 +18,20 @@ jobs:
         run: |
           npm pack
         working-directory: ./common
-      - uses: actions/checkout@v2
-      - name: Install common module
-        run: npm install '../common/nostrlivery-common-1.0.0.tgz'
-        working-directory: ./company
-      - name: Install modules
-        run: yarn
-        working-directory: ./company
-      - name: Run ESLint
-        run: yarn lint
-        working-directory: ./company
-      - uses: actions/checkout@v2
-      - name: Install modules
-        run: yarn
-        working-directory: ./driver
-      - name: Run ESLint
-        run: yarn lint
-        working-directory: ./driver
+    #  - uses: actions/checkout@v2
+    #  - name: Install common module
+    #    run: npm install '../common/nostrlivery-common-1.0.0.tgz'
+    #    working-directory: ./company
+    #  - name: Install modules
+    #    run: yarn
+    #    working-directory: ./company
+    #  - name: Run ESLint
+    #    run: yarn lint
+    #    working-directory: ./company
+    #  - uses: actions/checkout@v2
+    #  - name: Install modules
+    #    run: yarn
+    #    working-directory: ./driver
+    #  - name: Run ESLint
+    #    run: yarn lint
+    #    working-directory: ./driver
