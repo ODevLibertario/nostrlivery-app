@@ -2,8 +2,7 @@ import { useEffect, useState } from "react"
 import { Image, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View, } from "react-native"
 import Toast from "react-native-toast-message"
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
-import {GeolocationUtils, ValidationUtils} from "nostrlivery-common";
-import {StorageService, NodeService, NostrService, StoredKey, ActionButton, SelectInput} from "nostrlivery-common";
+import {GeolocationUtils, ValidationUtils, StorageService, NodeService, NostrService, StoredKey, ActionButton, SelectInput} from "@odevlibertario/nostrlivery-common";
 
 export const ProfileScreen = ({ navigation }: any) => {
     const [profile, setProfile] = useState<any>({})
