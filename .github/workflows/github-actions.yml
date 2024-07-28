@@ -22,7 +22,7 @@ jobs:
       #  run: |
       #    echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
       #    npm publish --access public
-        working-directory: ./common
+      #  working-directory: ./common
       - uses: actions/checkout@v2
       - name: Install modules
         run: yarn
