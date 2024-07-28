@@ -1,10 +1,10 @@
 {
-  "name": "nostrlivery-common",
+  "name": "@odevlibertario/nostrlivery-common",
   "version": "1.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "pack": "npm run build && npm pack && cd .. && cd company && npm install ../common/nostrlivery-common-1.0.0.tgz",
+    "pack": "npm run build && npm pack && cd .. && cd company && npm install ../common/odevlibertario-nostrlivery-common-1.0.0.tgz",
     "build": "tsc",
     "prepublishOnly": "npm run build",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
