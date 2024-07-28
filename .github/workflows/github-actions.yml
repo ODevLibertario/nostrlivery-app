@@ -18,6 +18,11 @@ jobs:
         run: |
           npm pack
         working-directory: ./common
+      - name: Publish to npm
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+          npm publish --access public
+        working-directory: ./common
     #  - uses: actions/checkout@v2
     #  - name: Install common module
     #    run: npm install '../common/nostrlivery-common-1.0.0.tgz'
