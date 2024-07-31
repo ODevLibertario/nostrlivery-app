@@ -16,3 +16,5 @@ export {SelectInput} from './components/SelectInput'
 export {LoginScreen} from './screens/Login'
 export {NodeSelectionScreen} from './screens/NodeSelection'
 export {SignUpScreen} from './screens/SignUp'
+
+export {NostrEventKinds} from './model/NostrEventKinds'

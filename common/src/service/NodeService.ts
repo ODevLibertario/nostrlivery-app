@@ -45,7 +45,7 @@ export class NodeService {
             const responseNostrEvent = new NostrEvent(responseEvent)
 
             if (verifyEvent(responseNostrEvent)) {
-                return JSON.parse(responseNostrEvent.content)
+                return JSON.parse(responseNostrEvent.content) as any
             }
         } else {
             throw 'Invalid node url'
@@ -59,4 +59,28 @@ export class NodeService {
         return JSON.parse(await this.postEvent(event))
     }
 
+    async queryEvents(filter: Filter): Promise<NostrEvent[]> {
+        const nsec = await this.storageService.get(StoredKey.NSEC)
+        const event = this.nostrService.signNostrliveryEvent(nsec, "QUERY_EVENTS", {filter})
+
+        return JSON.parse(await this.postEvent(event))
+    }
+
+
+    async getUsername(npub: string) {
+        const nodeUrl = await this.storageService.get(StoredKey.NODE_URL)
+        const response = await fetch(nodeUrl + '/username/'+ npub, {
+            method: 'GET',
+            headers: {
+                Accept: 'text/plain',
+                'Content-Type': 'text/plain',
+            }
+        })
+
+        if (response.ok) {
+            return await response.text()
+        } else {
+            throw 'Failed to get username'
+        }
+    }
 }

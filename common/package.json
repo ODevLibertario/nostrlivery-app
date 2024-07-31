@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "pack": "npm run build && npm pack && cd .. && cd company && npm install ../common/odevlibertario-nostrlivery-common-1.0.0.tgz",
+    "pack": "npm run build && npm pack && cd .. && cd company && npm install ../common/odevlibertario-nostrlivery-common-1.0.0.tgz && cd .. && cd driver && npm install ../common/odevlibertario-nostrlivery-common-1.0.0.tgz",
     "build": "tsc",
     "prepublishOnly": "npm run build",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
