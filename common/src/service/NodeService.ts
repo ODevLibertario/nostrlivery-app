@@ -1,13 +1,16 @@
 import { StorageService, StoredKey } from "./StorageService"
 import { NostrEvent } from "../model/NostrEvent"
-import { verifyEvent } from "nostr-tools"
+import {nip19, verifyEvent} from "nostr-tools"
 import type {Filter} from "nostr-tools/lib/types/filter"
 import {NostrService} from "./NostrService"
+import { schnorr } from '@noble/curves/secp256k1'
+import { sha256 } from '@noble/hashes/sha256'
 
 export class NodeService {
 
     private readonly storageService = new StorageService()
     private readonly nostrService = new NostrService()
+    private readonly utf8Encoder: TextEncoder = new TextEncoder()
 
     async getNodeIdentity(nodeUrl: string) {
         const response = await fetch(nodeUrl + '/identity', {
@@ -72,15 +75,30 @@ export class NodeService {
         const response = await fetch(nodeUrl + '/username/'+ npub, {
             method: 'GET',
             headers: {
-                Accept: 'text/plain',
-                'Content-Type': 'text/plain',
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
             }
         })
 
         if (response.ok) {
-            return await response.text()
+            const json = await response.json()
+
+            const signature = json["signature"]
+            const body = json["body"]
+
+            await this.validateNodeSignature(signature, body)
+
+            return body as string
         } else {
             throw 'Failed to get username'
+        }
+    }
+
+    private async validateNodeSignature(body: any, signature: string){
+        const nodeNpub = await this.storageService.get(StoredKey.NODE_NPUB)
+        let bodyHash = sha256(this.utf8Encoder.encode(body))
+        if(!schnorr.verify(signature, bodyHash, nip19.decode(nodeNpub).data as Uint8Array)){
+            throw 'Failed to verify response from node'
         }
     }
 }
