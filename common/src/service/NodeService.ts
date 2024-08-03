@@ -8,9 +8,9 @@ import { sha256 } from '@noble/hashes/sha256'
 
 export class NodeService {
 
-    private readonly storageService = new StorageService()
-    private readonly nostrService = new NostrService()
-    private readonly utf8Encoder: TextEncoder = new TextEncoder()
+    readonly storageService = new StorageService()
+    readonly nostrService = new NostrService()
+    readonly utf8Encoder: TextEncoder = new TextEncoder()
 
     async getNodeIdentity(nodeUrl: string) {
         const response = await fetch(nodeUrl + '/identity', {
@@ -94,7 +94,7 @@ export class NodeService {
         }
     }
 
-    private async validateNodeSignature(body: any, signature: string){
+    async validateNodeSignature(body: any, signature: string){
         const nodeNpub = await this.storageService.get(StoredKey.NODE_NPUB)
         let bodyHash = sha256(this.utf8Encoder.encode(body))
         if(!schnorr.verify(signature, bodyHash, nip19.decode(nodeNpub).data as Uint8Array)){
