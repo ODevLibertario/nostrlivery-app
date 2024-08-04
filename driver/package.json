@@ -11,7 +11,7 @@
     "lint:fix": "eslint . --fix --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
-    "@odevlibertario/nostrlivery-common": "file:../common/odevlibertario-nostrlivery-common-1.0.0.tgz",
+    "@odevlibertario/nostrlivery-common": "ˆ1.0.1",
     "@react-native-async-storage/async-storage": "^1.23.1",
     "@react-navigation/bottom-tabs": "^6.5.20",
     "@react-navigation/native": "^6.1.17",

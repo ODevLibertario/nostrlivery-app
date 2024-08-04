@@ -1,14 +1,15 @@
-import {NodeService} from "@odevlibertario/nostrlivery-common";
-import {StoredKey} from "@odevlibertario/nostrlivery-common/src/service/StorageService";
-import {CompanyAssociation} from "@model/CompanyAssociation";
-import {getPublicKey, nip19} from "nostr-tools";
+import {NodeService} from "@odevlibertario/nostrlivery-common"
+import {StoredKey} from "@odevlibertario/nostrlivery-common/src/service/StorageService"
+import {getPublicKey, nip19} from "nostr-tools"
+import {type EntityAssociation} from "@model/EntityAssociation"
 
 export class DriverNodeService extends NodeService {
 
-    async getCompanyAssociations(): Promise<CompanyAssociation[]> {
+    async getCompanyAssociations(): Promise<EntityAssociation[]> {
         const nodeUrl = await this.storageService.get(StoredKey.NODE_URL)
         const nsec = await this.storageService.get(StoredKey.NSEC)
-        const npub = nip19.npubEncode(getPublicKey(nsec))
+        const npub = nip19.npubEncode(getPublicKey(nip19.decode(nsec).data as Uint8Array))
+
         const response = await fetch(nodeUrl + '/driver/company-associations/'+ npub, {
             method: 'GET',
             headers: {
@@ -20,12 +21,12 @@ export class DriverNodeService extends NodeService {
         if (response.ok) {
             const json = await response.json()
 
-            const signature = json["signature"]
             const body = json["body"]
+            const signature = json["signature"]
 
-            await this.validateNodeSignature(signature, body)
+            await this.validateNodeSignature(body, signature)
 
-            return JSON.parse(json["body"]) as CompanyAssociation[]
+            return body as EntityAssociation[]
         } else {
             throw 'Failed to get company associations'
         }

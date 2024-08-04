@@ -6,7 +6,7 @@ import { HomeScreen } from "@screens/Home"
 import { MenuScreen } from "@screens/Menu"
 import { ProfileScreen } from "@screens/Profile"
 import { MenuItem } from "@screens/MenuItem"
-import {CompaniesScreen} from "@screens/Companies";
+import {CompaniesScreen} from "@screens/Companies"
 
 const { Navigator, Screen } = createBottomTabNavigator()
 
