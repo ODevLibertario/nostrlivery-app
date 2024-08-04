@@ -1,8 +1,9 @@
 # .github/workflows/lint.yml
 
 name: Build
-on: [push]
-workflow_dispatch:
+on:
+  push:
+  workflow_dispatch:
 
 jobs:
   lint-common:
