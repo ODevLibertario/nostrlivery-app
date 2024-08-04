@@ -1,3 +1,3 @@
 export enum NostrEventKinds {
-    DRIVER_ASSOCIATION = 20000
+    REGULAR = 1000, EPHEMERAL = 20000, REPLACEABLE = 30000
 }
