@@ -18,11 +18,11 @@ jobs:
         run: |
           npm pack
         working-directory: ./common
-      - name: Publish to npm
-        run: |
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
-          npm publish --access public
-        working-directory: ./common
+      #- name: Publish to npm
+      #  run: |
+      #    echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+      #    npm publish --access public
+      #  working-directory: ./common
   lint-company:
     runs-on: ubuntu-latest
     steps:
