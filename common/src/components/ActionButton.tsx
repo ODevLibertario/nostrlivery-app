@@ -1,26 +1,43 @@
 import React from "react"
-import { StyleSheet, Text, TouchableOpacity } from "react-native"
+import {
+    ActivityIndicator,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+} from "react-native"
 
 interface Props {
     onPress: () => void
     title: string
     color: string
     disabled?: boolean
+    isLoading?: boolean
     customStyle?: any
 }
 
-export const ActionButton = ({ onPress, title, color, disabled = false, customStyle = {} }: Props) => {
+export const ActionButton = ({
+    onPress,
+    title,
+    color,
+    disabled = false,
+    customStyle = {},
+    isLoading = false,
+}: Props) => {
     return (
         <TouchableOpacity
             disabled={disabled}
-            style={
-                disabled
-                    ? { ...customStyle, ...styles.button, backgroundColor: "#c8c8c8" }
-                    : { ...customStyle, ...styles.button, backgroundColor: color }
-            }
+            style={{
+                ...customStyle,
+                ...styles.button,
+                backgroundColor: disabled ? "#c8c8c8" : color,
+            }}
             onPress={onPress}
         >
-            <Text style={styles.buttonText}>{title}</Text>
+            {isLoading ? (
+                <ActivityIndicator animating={isLoading} color="white" />
+            ) : (
+                <Text style={styles.buttonText}>{title}</Text>
+            )}
         </TouchableOpacity>
     )
 }

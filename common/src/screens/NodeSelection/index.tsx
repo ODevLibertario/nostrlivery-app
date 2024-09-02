@@ -1,26 +1,31 @@
 import React, { useState } from "react"
 import { StyleSheet, Text, View } from "react-native"
 import Toast from "react-native-toast-message"
-import {NodeService} from "../../service/NodeService"
-import {StorageService, StoredKey} from "../../service/StorageService"
-import {SelectInput} from "../../components/SelectInput"
-import {ActionButton} from "../../components/ActionButton"
+import { NodeService } from "../../service/NodeService"
+import { StorageService, StoredKey } from "../../service/StorageService"
+import { SelectInput } from "../../components/SelectInput"
+import { ActionButton } from "../../components/ActionButton"
 
 export const NodeSelectionScreen = ({ navigation }: any) => {
     const [nodeUrl, onChangeNodeUrl] = useState("")
+    const [isFetchingIdentity, setIsFetchingIdentity] = useState(false)
 
     const nodeService = new NodeService()
     const storageService = new StorageService()
 
     const selectNode = () => {
+        setIsFetchingIdentity(true)
         nodeService
             .getNodeIdentity(nodeUrl)
             .then(() => navigation.navigate("Login"))
             .catch((e) => {
                 Toast.show({
                     type: "error",
-                    text1: e,
+                    text1: e.message,
                 })
+            })
+            .finally(() => {
+                setIsFetchingIdentity(false)
             })
     }
 
@@ -39,11 +44,18 @@ export const NodeSelectionScreen = ({ navigation }: any) => {
                 Node Selection
             </Text>
             <SelectInput
-                data={[{label: 'Localhost', value: 'http://localhost:3000'}]}
+                data={[{ label: "Localhost", value: "http://localhost:3000" }]}
                 emptyMessage={"Select your node"}
-                callback={onChangeNodeUrl}>
-            </SelectInput>
-            <ActionButton title={"Enter"} color={"purple"} onPress={selectNode} customStyle={{marginTop: '5%'}} />
+                callback={onChangeNodeUrl}
+            ></SelectInput>
+            <ActionButton
+                title={"Enter"}
+                color={"purple"}
+                onPress={selectNode}
+                isLoading={isFetchingIdentity}
+                disabled={isFetchingIdentity}
+                customStyle={{ marginTop: "5%" }}
+            />
         </View>
     )
 }
