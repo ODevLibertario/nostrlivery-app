@@ -1,23 +1,37 @@
 import React from "react"
-import {StyleSheet, Text, TextInput, View} from "react-native"
+import { StyleSheet, Text, TextInput, View } from "react-native"
 import Toast from "react-native-toast-message"
-import {nip19, generateSecretKey} from "nostr-tools"
-import {NodeService} from "../../service/NodeService"
-import {ActionButton} from "../../components/ActionButton"
-import {NostrService} from "../../service/NostrService"
-import * as Clipboard from 'expo-clipboard'
+import { nip19, generateSecretKey } from "nostr-tools"
+import { NodeService } from "../../service/NodeService"
+import { ActionButton } from "../../components/ActionButton"
+import { NostrService } from "../../service/NostrService"
+import * as Clipboard from "expo-clipboard"
 
 export const SignUpScreen = ({ navigation }: any) => {
     const [usernameInput, onChangeUsernameInput] = React.useState("")
+    const [isSigningUp, setIsSigningUp] = React.useState(false)
     const nodeService = new NodeService()
     const nostrService = new NostrService()
 
     const signUp = async () => {
-        const nsec = nip19.nsecEncode(generateSecretKey()) // `sk` is a Uint8Array
+        setIsSigningUp(true)
 
-        const profileUpdateEvent = nostrService.signNostrEvent(nsec, 0, [], {"name":usernameInput,"about":"","picture":"","website":"","nip05":"","lud16":""})
-        const event = nostrService.signNostrliveryEvent(nsec, "PUBLISH_EVENT", {event: profileUpdateEvent})
-        try{
+        try {
+            const nsec = nip19.nsecEncode(generateSecretKey()) // `sk` is a Uint8Array
+
+            const profileUpdateEvent = nostrService.signNostrEvent(nsec, 0, [], {
+                name: usernameInput,
+                about: "",
+                picture: "",
+                website: "",
+                nip05: "",
+                lud16: "",
+            })
+
+            const event = nostrService.signNostrliveryEvent(nsec, "PUBLISH_EVENT", {
+                event: profileUpdateEvent,
+            })
+
             await nodeService.postEvent(event)
             await Clipboard.setStringAsync(nsec)
             Toast.show({
@@ -31,6 +45,8 @@ export const SignUpScreen = ({ navigation }: any) => {
                 type: "error",
                 text1: "Failed to Sign up",
             })
+        } finally {
+            setIsSigningUp(false)
         }
     }
 
@@ -40,8 +56,18 @@ export const SignUpScreen = ({ navigation }: any) => {
                 Sign Up
             </Text>
             <Text style={styles.label}>Enter your username</Text>
-            <TextInput style={styles.input} onChangeText={onChangeUsernameInput}  />
-            <ActionButton title={"Sign Up"} color={"purple"} onPress={signUp} />
+            <TextInput
+                autoCapitalize="none"
+                style={styles.input}
+                onChangeText={onChangeUsernameInput}
+            />
+            <ActionButton
+                title={"Sign Up"}
+                color={"purple"}
+                isLoading={isSigningUp}
+                disabled={isSigningUp}
+                onPress={signUp}
+            />
         </View>
     )
 }
