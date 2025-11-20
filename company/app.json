@@ -16,17 +16,40 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.nostrliverycompany"
+      "bundleIdentifier": "com.anonymous.nostrliverycompany",
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app needs access to your camera to scan driver QR codes."
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.anonymous.nostrliverycompany"
+      "package": "com.anonymous.nostrliverycompany",
+      "permissions": [
+        "CAMERA"
+      ]
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf",
+            "node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"
+          ]
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera to scan driver QR codes."
+        }
+      ]
+    ]
   }
 }

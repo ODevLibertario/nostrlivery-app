@@ -1,12 +1,15 @@
 {
   "compilerOptions": {
-    "target": "ES5",               // Or any other target you need
-    "module": "commonjs",          // Or another module system you are using
-    "jsx": "react",                // Set to "react" if using React, or "react-jsx" for React 17+
+    "target": "ES2018",
+    "module": "commonjs",
+    "jsx": "react-jsx",
+    "lib": ["ES2018", "DOM"],
+    "moduleResolution": "node",
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
+    "resolveJsonModule": true,
     "declaration": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true

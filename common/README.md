@@ -8,4 +8,4 @@ npm pack
 
 ### To install in the app
 
-npm install ../common/nostrlivery-common-1.0.0.tgz
+npm install ../common/odevlibertario-nostrlivery-common-1.0.1.tgz

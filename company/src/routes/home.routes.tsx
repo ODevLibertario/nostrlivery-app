@@ -6,6 +6,8 @@ import { HomeScreen } from "@screens/Home"
 import { MenuScreen } from "@screens/Menu"
 import { ProfileScreen } from "@screens/Profile"
 import { MenuItem } from "@screens/MenuItem"
+import { AssociatedDriversScreen } from "@screens/AssociatedDrivers"
+import { DriverPreviewScreen } from "@screens/DriverPreview"
 
 const { Navigator, Screen } = createBottomTabNavigator()
 
@@ -37,7 +39,7 @@ export function HomeRoutes() {
             />
             <Screen
                 name="Drivers"
-                component={HomeScreen}
+                component={AssociatedDriversScreen}
                 options={{
                     tabBarIcon: ({ color, size }) => (
                         <FontAwesome name="motorcycle" color={color} size={size} />
@@ -66,6 +68,9 @@ export function HomeRoutes() {
                 tabBarButton: () => null
             }} />
             <Screen name="Menu Item" component={MenuItem} options={{
+                tabBarButton: () => null
+            }} />
+            <Screen name="DriverPreview" component={DriverPreviewScreen} options={{
                 tabBarButton: () => null
             }} />
         </Navigator>

@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react"
-import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View, } from "react-native"
+import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View, Alert, ScrollView } from "react-native"
 import Toast from "react-native-toast-message"
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
+import QRCode from "react-native-qrcode-svg"
+import { getPublicKey, nip19 } from "nostr-tools"
+import * as Clipboard from 'expo-clipboard'
 import {
     StorageService,
     NostrService,
@@ -16,9 +19,37 @@ export const ProfileScreen = ({ navigation }: any) => {
     const [nodeUrl, setNodeUrl] = useState<string>("")
     const [paymentRate, setPaymentRate] = useState<string>("")
     const [disabledNodeUrlBtn, setDisabledNodeUrlBtn] = useState<boolean>(true)
+    const [npub, setNpub] = useState<string>("")
     const storageService = new StorageService()
     const nodeService = new NodeService()
     const nostrService = new NostrService()
+
+    const generateNpub = async () => {
+        try {
+            const nsec = await storageService.get(StoredKey.NSEC)
+            if (nsec) {
+                const npub = nip19.npubEncode(getPublicKey(nip19.decode(nsec).data as Uint8Array))
+                setNpub(npub)
+            }
+        } catch (error) {
+            console.error("Error generating npub:", error)
+        }
+    }
+
+    const copyNpubToClipboard = async () => {
+        try {
+            await Clipboard.setStringAsync(npub)
+            Toast.show({
+                type: "success",
+                text1: "NPUB copied to clipboard",
+            })
+        } catch (error) {
+            Toast.show({
+                type: "error",
+                text1: "Failed to copy NPUB",
+            })
+        }
+    }
 
     useEffect(() => {
         storageService.get(StoredKey.NODE_URL).then((data) => {
@@ -35,6 +66,9 @@ export const ProfileScreen = ({ navigation }: any) => {
             setProfile(data)
             setPaymentRate(data.paymentRate)
         })
+
+        // Generate npub from stored nsec
+        generateNpub()
     }, [])
 
     useEffect(() => {
@@ -136,6 +170,11 @@ export const ProfileScreen = ({ navigation }: any) => {
             <TouchableOpacity style={styles.closeBtn} onPress={navigateToHome}>
                 <MaterialCommunityIcons name="close" color={"#000"} size={35} />
             </TouchableOpacity>
+            <ScrollView 
+                style={styles.scrollContainer}
+                contentContainerStyle={styles.scrollContent}
+                showsVerticalScrollIndicator={false}
+            >
             <View style={styles.basicInfoContainer}>
                 <View style={styles.nameInfo}>
                     <Text style={{ fontWeight: "500", fontSize: 30 }}>
@@ -162,6 +201,34 @@ export const ProfileScreen = ({ navigation }: any) => {
                     </View>
                 </View>
             </View>
+            
+            {/* NPUB QR Code Section */}
+            {npub && (
+                <View style={styles.npubContainer}>
+                    <Text style={styles.sectionTitle}>Your NPUB (Driver ID)</Text>
+                    <View style={styles.qrContainer}>
+                        <QRCode
+                            value={npub}
+                            size={200}
+                            color="#000000"
+                            backgroundColor="#FFFFFF"
+                        />
+                    </View>
+                    <View style={styles.npubTextContainer}>
+                        <Text style={styles.npubText} numberOfLines={2} ellipsizeMode="middle">
+                            {npub}
+                        </Text>
+                        <TouchableOpacity 
+                            style={styles.copyButton} 
+                            onPress={copyNpubToClipboard}
+                        >
+                            <MaterialCommunityIcons name="content-copy" color="#2f1650" size={20} />
+                            <Text style={styles.copyButtonText}>Copy</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            )}
+            
             <View>
                 <Text style={{ fontSize: 16 }}>Node Url</Text>
                 <TextInput
@@ -208,17 +275,24 @@ export const ProfileScreen = ({ navigation }: any) => {
                 <Text style={{ fontSize: 16 }}>Session</Text>
                 <ActionButton title={"Logout"} color={"red"} onPress={handleLogout} />
             </View>
+            </ScrollView>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     profileContainer: {
-        display: "flex",
-        flexDirection: "column",
+        flex: 1,
+        backgroundColor: "#f5f5f5",
+    },
+    scrollContainer: {
+        flex: 1,
+    },
+    scrollContent: {
         padding: 20,
         paddingTop: 25,
         gap: 15,
+        paddingBottom: 40, // Extra padding at bottom for better scrolling
     },
     basicInfoContainer: {
         display: "flex",
@@ -249,5 +323,67 @@ const styles = StyleSheet.create({
         padding: 10,
         fontSize: 16,
         marginBottom: "2%",
+    },
+    npubContainer: {
+        backgroundColor: "#f8f9fa",
+        borderRadius: 10,
+        padding: 20,
+        alignItems: "center",
+        marginVertical: 10,
+        borderWidth: 1,
+        borderColor: "#e9ecef",
+    },
+    sectionTitle: {
+        fontSize: 18,
+        fontWeight: "600",
+        color: "#2f1650",
+        marginBottom: 15,
+        textAlign: "center",
+    },
+    qrContainer: {
+        backgroundColor: "#ffffff",
+        padding: 15,
+        borderRadius: 10,
+        marginBottom: 15,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.1,
+        shadowRadius: 3.84,
+        elevation: 5,
+    },
+    npubTextContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        width: "100%",
+        backgroundColor: "#ffffff",
+        padding: 10,
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: "#dee2e6",
+    },
+    npubText: {
+        fontSize: 12,
+        color: "#6c757d",
+        fontFamily: "monospace",
+        flex: 1,
+        marginRight: 10,
+    },
+    copyButton: {
+        flexDirection: "row",
+        alignItems: "center",
+        backgroundColor: "#2f1650",
+        paddingHorizontal: 12,
+        paddingVertical: 8,
+        borderRadius: 6,
+    },
+    copyButtonText: {
+        color: "#ffffff",
+        fontSize: 12,
+        fontWeight: "500",
+        marginLeft: 5,
     },
 })

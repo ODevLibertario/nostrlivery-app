@@ -1,0 +1,44 @@
+{
+  "development": {
+    "relay": {
+      "url": "ws://127.0.0.1:7000",
+      "timeout": 10000
+    },
+    "node": {
+      "url": "http://127.0.0.1:3000",
+      "timeout": 5000
+    },
+    "events": {
+      "associationRequestKind": 20000,
+      "limit": 50
+    }
+  },
+  "production": {
+    "relay": {
+      "url": "wss://relay.example.com",
+      "timeout": 15000
+    },
+    "node": {
+      "url": "https://api.example.com",
+      "timeout": 10000
+    },
+    "events": {
+      "associationRequestKind": 20000,
+      "limit": 100
+    }
+  },
+  "staging": {
+    "relay": {
+      "url": "wss://staging-relay.example.com",
+      "timeout": 12000
+    },
+    "node": {
+      "url": "https://staging-api.example.com",
+      "timeout": 8000
+    },
+    "events": {
+      "associationRequestKind": 20000,
+      "limit": 75
+    }
+  }
+}
